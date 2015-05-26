@@ -1,0 +1,10 @@
+The available commands i've found so far:
+i2cdetect, i2cdump, i2cget
+
+For looking at the busses, you can type:
+$ ls -l /sys/bus/i2c/devices/i2c-1
+
+Then to see the hex map of the device addresses:
+$ i2cdetect -y -r 1
+
+i2cget -y 3 0x40 00 will let you retrieve a value at an address.
