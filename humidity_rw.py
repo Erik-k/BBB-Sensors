@@ -22,7 +22,9 @@ tempC = ((d[2] << 6) + ((d[3] & 0xfc) >> 2))*165/16383 - 40
 tempF = tempC*9/5 + 32
 
 time_now = time.localtime()
-f = open("/home/root/humidityAndTemp_readings/%s.txt" % time.strftime('%Y_%b_%d_%a'), 'a') 
+#f = open("/home/debian/humidityAndTemp_readings/%s.txt" % time.strftime('%Y_%b_%d_%a'), 'a') 
+# Generic file called temp_hum_data.csv with no timestamp:
+f = open("/var/www/sensorsblog/%s" % 'temp_hum_data.csv', 'a')
 
 # Allowing this output really fills up the journalctl when cron is running this at 1Hz
 #print "Data:       ", "%02x "*len(d)%tuple(d)
@@ -32,4 +34,6 @@ f = open("/home/root/humidityAndTemp_readings/%s.txt" % time.strftime('%Y_%b_%d_
 
 str_hum = str(humidity)
 str_temp = str(tempC)
-f.write('{0} {1} {2}\n'.format(time.strftime('%H:%M'), str_hum, str_temp))
+#f.write('{0} {1} {2}\n'.format(time.strftime('%H:%M'), str_hum, str_temp))
+# For CSV format for Dygraphs:
+f.write('{0},{1},{2}\n'.format(time.strftime('%H%M'), str_hum, str_temp))
