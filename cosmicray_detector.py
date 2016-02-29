@@ -1,3 +1,6 @@
+# To do: make sure the NAND hits take precedence over hits from tube1 
+# and tube2 which will occur at the same time.
+
 import Adafruit_BBIO.GPIO as GPIO
 import time
 
@@ -15,7 +18,7 @@ ZenithHits = 0
 
 def recordEvent(tube):
 	global Tube1Hits, Tube2Hits
-	print "Recording event on " + tube + "\n"
+	print "Recording event on " + tube
 	if tube == 1:
 		Tube1Hits += 1
 	elif tube == 2:
@@ -26,4 +29,4 @@ def recordEvent(tube):
 GPIO.add_event_detect(GeigerTube1, GPIO.FALLING, callback=recordEvent)
 GPIO.add_event_detect(GeigerTube2, GPIO.FALLING, callback=recordEvent)
 GPIO.add_event_detect(NAND, GPIO.FALLING, callback=recordEvent)
-print "Program finished.\n"
+print "Program ended."
