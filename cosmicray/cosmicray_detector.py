@@ -32,9 +32,9 @@ def recordZenithEvent(pin):
 	print "Cosmic Ray!"
 	ZenithHits += 1
 
-GPIO.add_event_detect(NOR, GPIO.FALLING, callback=recordZenithEvent)
 GPIO.add_event_detect(GeigerTube1, GPIO.FALLING, callback=recordEvent1)
 GPIO.add_event_detect(GeigerTube2, GPIO.FALLING, callback=recordEvent2)
+GPIO.add_event_detect(NOR, GPIO.FALLING, callback=recordZenithEvent)
 while True:
 	time.sleep(10)
 	print "The hits so far:"
