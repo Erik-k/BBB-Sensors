@@ -6,7 +6,7 @@ import time
 
 GeigerTube1 = "P9_41"
 GeigerTube2 = "P9_42"
-NOR = "P9_40"
+NOR = "P9_12"
 
 GPIO.setup(GeigerTube1, GPIO.IN)
 GPIO.setup(GeigerTube2, GPIO.IN)
