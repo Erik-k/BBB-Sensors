@@ -35,10 +35,31 @@ def recordZenithEvent(pin):
 GPIO.add_event_detect(GeigerTube1, GPIO.FALLING, callback=recordEvent1)
 GPIO.add_event_detect(GeigerTube2, GPIO.FALLING, callback=recordEvent2)
 GPIO.add_event_detect(NOR, GPIO.FALLING, callback=recordZenithEvent)
+
+# Set up the .mat file we're going to write the counts to, by hour,
+# for processing and graphing by an accompanying octave script:
+todaysFileName = time.strftime("%Y%m%d") + ".mat"
+currentHour = time.localtime().tm_hour
+today = time.localtime().tm_mday
+
 while True:
-	time.sleep(10)
-	print "The hits so far:"
-	print "Tube 1: ", Tube1Hits
-	print "Tube 2: ", Tube2Hits
-	print "Cosmic Rays: ", ZenithHits
-print "Program ended."
+	time.sleep(1)
+	if time.localtime().tm_mday is not today:
+		with open(todaysFileName, 'a') as file:
+                        file.write(str(ZenithHits) + '\n')
+                        file.close()
+                Tube1Hits = 0
+                Tube2Hits = 0
+                ZenithHits = 0
+                currentHour = time.localtime().tm_hour
+		today = time.localtime().tm_mday
+
+	if time.localtime().tm_hour is not currentHour:
+		with open(todaysFileName, 'a') as file:
+			file.write(str(ZenithHits) + '\n')
+			file.close()
+		Tube1Hits = 0
+		Tube2Hits = 0
+		ZenithHits = 0
+		currentHour = time.localtime().tm_hour
+		
