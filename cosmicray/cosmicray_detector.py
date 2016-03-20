@@ -37,7 +37,7 @@ GPIO.add_event_detect(GeigerTube2, GPIO.FALLING, callback=recordEvent2)
 GPIO.add_event_detect(NOR, GPIO.FALLING, callback=recordZenithEvent)
 
 # Set up the .mat file we're going to write the counts to, by hour,
-# for processing and graphing by an accompanying octave script:
+# for processing and graphing by an accompanying octave script
 todaysFileName = time.strftime("%Y%m%d") + ".mat"
 currentHour = time.localtime().tm_hour
 today = time.localtime().tm_mday
@@ -45,12 +45,16 @@ today = time.localtime().tm_mday
 while True:
 	time.sleep(1)
 	if time.localtime().tm_mday is not today:
+		# Write the hits for the final hour of yesterday
 		with open(todaysFileName, 'a') as file:
                         file.write(str(ZenithHits) + '\n')
                         file.close()
                 Tube1Hits = 0
                 Tube2Hits = 0
                 ZenithHits = 0
+
+		# Now get ready for the new day
+		todaysFileName = time.strftime("%Y%m%d") + ".mat"
                 currentHour = time.localtime().tm_hour
 		today = time.localtime().tm_mday
 
