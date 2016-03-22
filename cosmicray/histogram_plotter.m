@@ -7,9 +7,10 @@ Created 2 March 2016 by Erik Knechtel
 
 clear all;
 
-today = datestr(date, 'yyyymmdd');
+# We are actually always going to graph YESTERDAYS data
+today=datestr(now-1, 'yyyymmdd');
 # strcat doesnt preserve trailing white spaces so have to use []
-todaysgraphtitle = ['Cosmic Ray Hits on ', date];
+todaysgraphtitle = ['Cosmic Ray Hits on ', datestr(now-1, 'dd-mmm-yyyy')];
 todaysfilename = strcat(today,'.mat');
 todaysimagename = strcat(today,'.jpg');
 
